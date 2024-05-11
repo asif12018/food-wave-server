@@ -37,9 +37,22 @@ const client = new MongoClient(uri, {
 
         //get all the data from server
         app.get('/allFood', async(req,res)=>{
+            // const query = req.body.query;
+            // console.log(query);
             const cursor = foodCollection.find();
             const foodArray = await cursor.toArray();
             res.send(foodArray);
+        })
+
+        //get the filter data from server
+        app.get('/filter', async(req,res)=>{
+           const name = req.query;
+          //  console.log(name)
+           const query = {itemName:name.name}
+          //  console.log(query)
+          const cursor = foodCollection.find(query);
+          const result = await cursor.toArray();
+          res.send(result);
         })
 
 
