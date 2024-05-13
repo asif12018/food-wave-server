@@ -26,6 +26,7 @@ const client = new MongoClient(uri, {
       await client.connect();
       // foods collection
         const foodCollection = client.db('foodDB').collection('foods');
+        const requestCollection = client.db('requestDB').collection('requests');
 
 
       //create api to post data on server
@@ -60,6 +61,25 @@ const client = new MongoClient(uri, {
           const result = await cursor.toArray();
           res.send(result);
         })
+
+
+        //get single food details
+        app.get('/details/:id', async(req,res)=>{
+             const id = req.params.id;
+            //  console.log(id);
+             const query = {_id: new ObjectId(id)}
+             const result = await foodCollection.findOne(query);
+             res.send(result);
+        })
+
+        //set requested food information to data base
+        app.post('/request/', async(req,res)=>{
+          const requestedFood = req.body;
+          const result = await requestCollection.insertOne(requestedFood);
+          res.send(result);
+        })
+
+        
 
 
 
