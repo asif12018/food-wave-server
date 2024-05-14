@@ -84,7 +84,7 @@ async function run() {
     //create api to post data on server
     app.post('/addFood', verifyToken,async (req, res) => { 
       //verifying token
-      if(req.user.email !== req.params.email){
+      if(req.user.email !== req.query.userEmail){
         return res.status(403).send('unauthorized access');
      }
       const foodItem = req.body;
