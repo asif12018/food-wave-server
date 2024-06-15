@@ -12,7 +12,7 @@ const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@clu
 
 //middleware
 app.use(cors({
-  origin:['http://localhost:5173'],
+  origin:['http://localhost:5173','https://food-wave-6f59a.web.app','https://food-wave-6f59a.firebaseapp.com'],
   credentials:true
 }));
 app.use(express.json());
@@ -48,7 +48,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
     // foods collection
     const foodCollection = client.db('foodDB').collection('foods');
     const requestCollection = client.db('requestDB').collection('requests');
